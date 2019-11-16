@@ -52,18 +52,18 @@ TEST(Hor_Gauss_MPI, pargauss_test_on_matrix_3x4) {
   }
 }
 
-TEST(Hor_Gauss_MPI, effective_test_on_matrix_20x21) {
-  std::vector<double> a = getRandMatrix(20);
+TEST(Hor_Gauss_MPI, effective_test_on_matrix_30x31) {
+  std::vector<double> a = getRandMatrix(30);
   int rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
   // double startPar = MPI_Wtime();
-  std::vector<double> a1 = getParGauss(a, 20);
+  std::vector<double> a1 = getParGauss(a, 30);
   // double endPar = MPI_Wtime();
   if (rank == 0) {
     // double startSeq = MPI_Wtime();
-    std::vector<double> a2 = getGauss(a, 20);
+    std::vector<double> a2 = getGauss(a, 30);
     // double endSeq = MPI_Wtime();
-    bool c = isItTrueAnswer(a, 20, a1);
+    bool c = isItTrueAnswer(a, 30, a1);
     EXPECT_EQ(c, true);
     // std::cout << "Time seq: " << endSeq - startSeq << std::endl;
     // std::cout << "Time par: " << endPar - startPar << std::endl;

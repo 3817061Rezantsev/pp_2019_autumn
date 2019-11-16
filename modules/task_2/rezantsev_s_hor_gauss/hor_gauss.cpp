@@ -46,7 +46,7 @@ std::vector<double> getGauss(const std::vector<double> &a, int n) {
   return res;
 }
 
-bool isItTrueAnswer(std::vector<double> &a, int n, std::vector<double> &x) {
+bool isItTrueAnswer(const std::vector<double> &a, int n, const std::vector<double> &x) {
   std::vector<double> res(n);
   double e = 1e-9;
   for (int i = 0; i < n; i++) {
