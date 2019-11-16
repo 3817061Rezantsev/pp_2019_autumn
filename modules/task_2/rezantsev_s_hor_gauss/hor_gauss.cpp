@@ -55,7 +55,7 @@ bool isItTrueAnswer(const std::vector<double> &a, int n, const std::vector<doubl
     }
   }
   for (int i = 0; i < n; i++) {
-    if (abs(res[i] - a[i * (n + 1) + n]) > e) {
+    if (std::abs(res[i] - a[i * (n + 1) + n]) > e) {
       return false;
     }
   }
