@@ -14,7 +14,7 @@ TEST(Hor_Gauss_MPI, gauss_test_on_matrix_3x4) {
   a[3] = 1;
   a[4] = 2;
   a[5] = 5;
-  a[6] = 6; 
+  a[6] = 6;
   a[7] = 3;
   a[8] = 1;
   a[9] = 3;
@@ -25,6 +25,19 @@ TEST(Hor_Gauss_MPI, gauss_test_on_matrix_3x4) {
   res = getGauss(a, 3);
   bool check = isItTrueAnswer(a, 3, res);
   if (rank == 0) {
+    EXPECT_EQ(check, true);
+  }
+}
+
+TEST(Hor_Gauss_MPI, pargauss_test_on_matrix_2x3) {
+  std::vector<double> a(6);
+  a = {3, 4, 8, 1, 3, 7};
+  int rank;
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+  std::vector<double> res(2);
+  res = getParGauss(a, 2);
+  if (rank == 0) {
+    bool check = isItTrueAnswer(a, 2, res);
     EXPECT_EQ(check, true);
   }
 }
@@ -52,41 +65,33 @@ TEST(Hor_Gauss_MPI, pargauss_test_on_matrix_3x4) {
   }
 }
 
-TEST(Hor_Gauss_MPI, effective_test_on_matrix_30x31) {
-  std::vector<double> a = getRandMatrix(30);
+TEST(Hor_Gauss_MPI, pargauss_test_on_matrix_4x5) {
+  std::vector<double> a(20);
+  a = {
+    1, 12, 4, 5, 7,
+    5, 8, 3, 11, 45,
+    19, 3, 4, 8, 3,
+    6, 11, 5, 7, 0
+  };
   int rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-  // double startPar = MPI_Wtime();
-  std::vector<double> a1 = getParGauss(a, 30);
-  // double endPar = MPI_Wtime();
+  std::vector<double> res(4);
+  res = getParGauss(a, 4);
   if (rank == 0) {
-    // double startSeq = MPI_Wtime();
-    std::vector<double> a2 = getGauss(a, 30);
-    // double endSeq = MPI_Wtime();
-    bool c = isItTrueAnswer(a, 30, a1);
-    EXPECT_EQ(c, true);
-    // std::cout << "Time seq: " << endSeq - startSeq << std::endl;
-    // std::cout << "Time par: " << endPar - startPar << std::endl;
-  }
-}
-
-TEST(Hor_Gauss_MPI, pargauss_test_on_matrix_2x3) {
-  std::vector<double> a(6);
-  a = {3, 4, 8, 1, 3, 7};
-  int rank;
-  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-  std::vector<double> res(2);
-  res = getParGauss(a, 2);
-  if (rank == 0) {
-    bool check = isItTrueAnswer(a, 2, res);
+    bool check = isItTrueAnswer(a, 4, res);
     EXPECT_EQ(check, true);
   }
 }
 
 TEST(Hor_Gauss_MPI, pargauss_test_on_matrix_5x6) {
   std::vector<double> a(30);
-  a = {1, 12, 4, 5, 7, 5, 8,  3,  11, 45, 19, 3,  4, 8, 3,
-       6, 11, 5, 7, 0, 4, 13, 44, 18, 10, 17, 88, 3, 9, 2};
+  a = {
+    1, 12, 4, 5, 7, 5,
+    8, 3, 11, 45, 19, 3,
+    4, 8, 3, 6, 11, 5,
+    7, 0, 4, 13, 44, 18,
+    10, 17, 88, 3, 9, 2
+  };
   int rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
   std::vector<double> res(5);
@@ -117,6 +122,23 @@ TEST(Hor_Gauss_MPI, pargauss_test_on_matrix_6x7) {
   }
 }
 
+/*TEST(Hor_Gauss_MPI, effective_test_on_matrix_100x101) {
+  std::vector<double> a = getRandMatrix(100);
+  int rank;
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+  double startPar = MPI_Wtime();
+  std::vector<double> a1 = getParGauss(a, 100);
+  double endPar = MPI_Wtime();
+  if (rank == 0) {
+    double startSeq = MPI_Wtime();
+    std::vector<double> a2 = getGauss(a, 100);
+    double endSeq = MPI_Wtime();
+    bool c = isItTrueAnswer(a, 100, a1);
+    EXPECT_EQ(c, true);
+    std::cout << "Time seq: " << endSeq - startSeq << std::endl;
+    std::cout << "Time par: " << endPar - startPar << std::endl;
+  }
+}*/
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
   MPI_Init(&argc, &argv);
