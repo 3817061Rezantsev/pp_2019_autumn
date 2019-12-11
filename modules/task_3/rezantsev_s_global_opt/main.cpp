@@ -88,8 +88,8 @@ TEST(global_opt, test_f3) {
     double startSeq = MPI_Wtime();
     g.OrdinaryCalculation();
     double endSeq = MPI_Wtime();
-    //std::cout << "Time seq: " << endSeq - startSeq << std::endl;
-    //std::cout << "Time par: " << endPar - startPar << std::endl;
+    // std::cout << "Time seq: " << endSeq - startSeq << std::endl;
+    // std::cout << "Time par: " << endPar - startPar << std::endl;
     result res = {std::abs(r.x), std::abs(r.y), 0};
     ASSERT_TRUE(res.x <= 0.1);
     ASSERT_TRUE(res.y <= 0.1);

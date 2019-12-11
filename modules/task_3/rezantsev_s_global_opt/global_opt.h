@@ -12,9 +12,7 @@ class Point {
   double x;
   double y;
   Point(double _x, double _y);
-  friend bool operator<(const Point& l, const Point& r) {
-    return l.x < r.x;
-  }
+  friend bool operator<(const Point& l, const Point& r) { return l.x < r.x; }
 };
 
 class GlobalPoint : public Point {
@@ -35,18 +33,14 @@ class RPoint {
   double prevZ;
   RPoint(double _R, double _x, double _z, double _prevX, double _prevZ)
       : R(_R), x(_x), z(_z), prevX(_prevX), prevZ(_prevZ) {}
-  friend bool operator<(const RPoint& l, const RPoint& r) {
-    return l.R > r.R;
-    }
-  };
+  friend bool operator<(const RPoint& l, const RPoint& r) { return l.R > r.R; }
+};
 
 struct result {
   double x;
   double y;
   double z;
 };
-
- 
 
 class OneDimensionalOpt {
  public:
@@ -125,6 +119,5 @@ class GlobalOptimazer {
   void OrdinaryCalculation();
   void setRPoints();
 };
-
 
 #endif  // MODULES_TASK_3_REZANTSEV_S_GLOBAL_OPT_GLOBAL_OPT_H_
