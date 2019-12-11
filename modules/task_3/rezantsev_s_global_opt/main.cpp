@@ -79,15 +79,15 @@ TEST(global_opt, test_f3) {
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
   double (*fptr)(double, double) = f3;
   GlobalOptimazer glob(-5, 5, -5, 5, fptr);
-  double startPar = MPI_Wtime();
+  // double startPar = MPI_Wtime();
   glob.globalCalculation();
-  double endPar = MPI_Wtime();
+  // double endPar = MPI_Wtime();
   if (rank == 0) {
     r = glob.res;
-    GlobalOptimazer g(-5, 5, -5, 5, fptr);
-    double startSeq = MPI_Wtime();
-    g.OrdinaryCalculation();
-    double endSeq = MPI_Wtime();
+    // GlobalOptimazer g(-5, 5, -5, 5, fptr);
+    // double startSeq = MPI_Wtime();
+    // g.OrdinaryCalculation();
+    // double endSeq = MPI_Wtime();
     // std::cout << "Time seq: " << endSeq - startSeq << std::endl;
     // std::cout << "Time par: " << endPar - startPar << std::endl;
     result res = {std::abs(r.x), std::abs(r.y), 0};
